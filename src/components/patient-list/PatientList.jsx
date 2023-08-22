@@ -1,11 +1,22 @@
-import { Patient } from "../patient"
+import { PatientItem } from "../patient"
+import { List } from "../list"
+import PropTypes from 'prop-types'
+import { EmptyAndNotEmptyState } from './EmptyAndNotEmptyState'
 
-export const PatientList = () => {
+export const PatientList = ({ patients = [] }) => {
   return (
     <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
-      <h2 className="font-black text-3xl text-center">Listado Pacientes</h2>
-      <p className="text-xl mt-5 mb-10 text-center"> Administra tus {''}<span className="text-indigo-600 font-bold">Pacientes y Citas</span></p>
-      <Patient />
+      <EmptyAndNotEmptyState isEmpty={patients.length === 0} />
+
+      <List
+        Item={PatientItem}
+        elements={patients}
+      />
     </div>
   )
+}
+
+
+PatientList.propTypes = {
+  patients: PropTypes.array
 }

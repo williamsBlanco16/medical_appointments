@@ -17,7 +17,7 @@ export const List = ({ elements = [], Item }) => {
 }
 
 List.propTypes = {
-  elements: PropTypes.string,
+  elements: PropTypes.array,
   EmptyStateComponent: PropTypes.any,
   Item: PropTypes.any
 }

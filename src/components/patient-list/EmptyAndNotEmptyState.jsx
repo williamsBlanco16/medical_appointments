@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export const EmptyAndNotEmptyState = memo(({ isEmpty = true }) => {
   const title = isEmpty ? 'No hay pacientes' : 'Listado Pacientes'
-  const description = isEmpty ? 'Comienza agregando pacientes y' : 'Administra tus'
+  const description = isEmpty ? 'Comienza agregando pacientes y ' : 'Administra tus'
   const highlightedDescription = isEmpty ? 'apareceran en este lugar' : 'Pacientes y Citas'
 
   return (

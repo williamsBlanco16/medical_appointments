@@ -1,6 +1,7 @@
 import { Input } from "../input"
 import { useInput } from '../../hook/form'
 import PropTypes from 'prop-types'
+import { generateId } from "../../util/common"
 
 
 export const Form = ({ addPatient = () => { } }) => {
@@ -20,13 +21,15 @@ export const Form = ({ addPatient = () => { } }) => {
     symptomsReset()
   }
 
+
   const getPatientFormat = () => {
     return {
       name: nameProps.value,
       owner: ownerProps.value,
       email: emailProps.value,
       date: dateProps.value,
-      symptoms: symptomsProps.value
+      symptoms: symptomsProps.value,
+      id: generateId()
     }
   }
 

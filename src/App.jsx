@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Header } from './components/header'
 import { Form } from './components/form'
 import { PatientList } from './components/patient-list'
@@ -17,12 +16,6 @@ function App() {
     }
   ] = usePatient([])
 
-
-
-
-  useEffect(() => {
-    console.log('patients', patients)
-  }, [patients])
   return (
     <div className="container mx-auto mt-20">
       <Header />

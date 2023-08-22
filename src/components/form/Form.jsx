@@ -2,15 +2,32 @@ import { Input } from "../input"
 import { useInput } from '../../hook/form'
 import PropTypes from 'prop-types'
 import { generateId } from "../../util/common"
+import { useCallback, useEffect } from "react"
 
 
-export const Form = ({ addPatient = () => { } }) => {
 
-  const [nameProps, nameReset] = useInput('')
-  const [ownerProps, ownerReset] = useInput('')
-  const [emailProps, emailReset] = useInput('')
-  const [dateProps, dateReset] = useInput('')
-  const [symptomsProps, symptomsReset] = useInput('')
+export const Form = ({ addPatient = () => { }, patientForEdit, updatePatient }) => {
+
+  const [nameProps, nameReset, setName] = useInput('')
+  const [ownerProps, ownerReset, setOwner] = useInput('')
+  const [emailProps, emailReset, setEmail] = useInput('')
+  const [dateProps, dateReset, setDate] = useInput('')
+  const [symptomsProps, symptomsReset, setSympthoms] = useInput('')
+
+  const setValuesForEdit = useCallback(() => {
+    const { name, owner, email, date, symptoms } = patientForEdit
+    setName(name)
+    setOwner(owner)
+    setEmail(email)
+    setDate(date)
+    setSympthoms(symptoms)
+  }, [patientForEdit, setDate, setEmail, setName, setOwner, setSympthoms])
+
+  useEffect(() => {
+    if (!Object.keys(patientForEdit).length) return
+    setValuesForEdit()
+
+  }, [patientForEdit, setValuesForEdit])
 
 
   const resetForm = () => {
@@ -28,15 +45,21 @@ export const Form = ({ addPatient = () => { } }) => {
       owner: ownerProps.value,
       email: emailProps.value,
       date: dateProps.value,
-      symptoms: symptomsProps.value,
-      id: generateId()
+      symptoms: symptomsProps.value
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const patient = getPatientFormat()
-    addPatient(patient)
+    if (patientForEdit?.id) {
+      //update
+      patient.id = patientForEdit.id
+      updatePatient(patient)
+    } else {
+      patient.id = generateId()
+      addPatient(patient)
+    }
     resetForm()
 
   }
@@ -62,5 +85,14 @@ export const Form = ({ addPatient = () => { } }) => {
 }
 
 Form.propTypes = {
-  addPatient: PropTypes.func.isRequired
+  addPatient: PropTypes.func.isRequired,
+  patientForEdit: PropTypes.shape({
+    name: PropTypes.string,
+    owner: PropTypes.string,
+    email: PropTypes.string,
+    date: PropTypes.string,
+    symptoms: PropTypes.string,
+    id: PropTypes.string
+  }),
+  updatePatient: PropTypes.func
 }

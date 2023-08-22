@@ -2,9 +2,12 @@ import { Header } from './components/header'
 import { Form } from './components/form'
 import { PatientList } from './components/patient-list'
 import { usePatient } from './hook/patient'
+import { useEffect } from 'react'
+import { loadLocalStorage, saveLocalStorage } from './util/common'
+
+const KEY_PATIENT = 'patients'
 
 function App() {
-
   const [
     patients,
     patientForEdit,
@@ -14,7 +17,12 @@ function App() {
       removePatient,
       setPatientForEdit
     }
-  ] = usePatient([])
+  ] = usePatient(() => loadLocalStorage(KEY_PATIENT))
+
+
+  useEffect(() => {
+    saveLocalStorage(KEY_PATIENT, patients)
+  }, [patients])
 
   return (
     <div className="container mx-auto mt-20">

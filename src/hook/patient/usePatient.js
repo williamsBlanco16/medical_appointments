@@ -2,6 +2,7 @@ import { useState } from "react"
 
 export const usePatient = (initialState) => {
   const [patients, setPatients] = useState(initialState)
+
   const [patientForEdit, setPatientForEdit] = useState({})
 
   const getPatient = (id) => {
@@ -31,7 +32,8 @@ export const usePatient = (initialState) => {
       addPatient,
       updatePatient,
       removePatient,
-      setPatientForEdit
+      setPatientForEdit,
+      setPatients
     }
   ]
 }

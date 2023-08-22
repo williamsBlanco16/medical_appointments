@@ -1,1 +1,1 @@
-export { generateId } from './common'
+export * from './common'

@@ -1,8 +1,9 @@
 import { Input } from "../input"
+import { Error } from '../error'
 import { useInput } from '../../hook/form'
 import PropTypes from 'prop-types'
 import { generateId } from "../../util/common"
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 
 
@@ -22,6 +23,7 @@ export const Form = ({ addPatient = () => { }, patientForEdit, updatePatient }) 
     setDate(date)
     setSympthoms(symptoms)
   }, [patientForEdit, setDate, setEmail, setName, setOwner, setSympthoms])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     if (!Object.keys(patientForEdit).length) return
@@ -52,6 +54,10 @@ export const Form = ({ addPatient = () => { }, patientForEdit, updatePatient }) 
   const handleSubmit = (event) => {
     event.preventDefault()
     const patient = getPatientFormat()
+    if (Object.values(patient).includes('')) {
+      setError(true)
+      return
+    }
     if (patientForEdit?.id) {
       //update
       patient.id = patientForEdit.id
@@ -61,6 +67,7 @@ export const Form = ({ addPatient = () => { }, patientForEdit, updatePatient }) 
       addPatient(patient)
     }
     resetForm()
+    setError(false)
 
   }
 
@@ -68,7 +75,7 @@ export const Form = ({ addPatient = () => { }, patientForEdit, updatePatient }) 
     <div className="md:w-1/2 lg:w-2/5">
       <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
       <p className="text-lg mt-5 text-center mb-10">Agrega pacientes {''} <span className="text-indigo-600 font-bold">Adminimistrados</span></p>
-
+      {error && <Error />}
       <form className="bg-white shadow-md rounded py-10 px-5 " onSubmit={handleSubmit}>
         <Input id='pet' label='Nombre Mascota:' placeholder='nombre mascota' {...nameProps} />
         <Input id='owner' label='Nombre Propietario:' placeholder='nombre del propietario' {...ownerProps} />

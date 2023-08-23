@@ -1,8 +1,30 @@
-# React + Vite
+Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+basic project of react - javascript where it consists of the follow-up of veterinary patients where the concepts of:
 
-Currently, two official plugins are available:
+- CRUD
+- ready design pattern
+- Using the localStorage API
+-Hook(useState, useEffect, useCallback)
+-Custom hooks
+-Pure component
+- Use of memo
+- Render props
+- Form controlled
+- Use of css framework
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Build with
+
+- vite
+-Taildwindcss
+-React
+-Javascript
+
+getting started
+
+npm install
+npm run dev
+
+demo: https://medicalappointments01.netlify.app/
+
+![Alt text](image.png)
